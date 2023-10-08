@@ -1,0 +1,28 @@
+version: 25
+jobs:
+- name: Pipeline
+  steps:
+  - !CheckoutStep
+    name: Checkout
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !BuildImageStep
+    name: DockerImage
+    tags: 172.232.148.114:5000/registry:v2
+    publish: true
+    removeDanglingImages: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PushRepository
+    name: Push
+    remoteUrl: http://172.232.148.114:8080/
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !ScheduleTrigger
+    cronExpression: 0 15 10 ? * MON-FRI
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
