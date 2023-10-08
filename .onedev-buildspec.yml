@@ -21,3 +21,17 @@ jobs:
   maxRetries: 3
   retryDelay: 30
   timeout: 3600
+- name: Remote_mirroring
+  steps:
+  - !PushRepository
+    name: Github
+    remoteUrl: https://github.com/Hardi5/u07_mirror
+    passwordSecret: Github
+    force: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger {}
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  timeout: 3600
