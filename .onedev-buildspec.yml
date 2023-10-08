@@ -14,11 +14,6 @@ jobs:
     publish: true
     removeDanglingImages: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
-  - !PushRepository
-    name: Push
-    remoteUrl: http://172.232.148.114:8080/
-    force: false
-    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !ScheduleTrigger
     cronExpression: 0 15 10 ? * MON-FRI
