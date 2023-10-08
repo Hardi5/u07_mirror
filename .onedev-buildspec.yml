@@ -14,9 +14,15 @@ jobs:
     publish: true
     removeDanglingImages: true
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !SetBuildVersionStep
+    name: Build
+    buildVersion: '@build_number@'
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !PushRepository
-    name: Push
-    remoteUrl: http://172.232.148.65:5000/
+    name: push
+    remoteUrl: http://172.232.148.114:5000/
+    userName: hardi
+    passwordSecret: Password
     force: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
