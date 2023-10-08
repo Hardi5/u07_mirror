@@ -1,0 +1,35 @@
+version: "3.3"
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9095:9090"
+    volumes:
+      - /home/configs/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    hostname: grafana
+    image: grafana/grafana
+    ports:
+      - 8081:3000
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - prometheus
+    ports:
+      - "6612:6610"
+    command: ["python3", "app/main.py"]
+
+  # New registry service
+  registry:
+    image: registry:2
+    container_name: docker-registry
+    ports:
+      - "5000:5000"
+    volumes:
+      - /home/configs/docker-registry:/var/lib/registry
