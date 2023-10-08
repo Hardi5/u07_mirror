@@ -5,7 +5,7 @@ services:
   prometheus:
     image: prom/prometheus
     ports:
-      - "9095:9090"
+      - "9097:9090"
     volumes:
       - /home/configs/prometheus.yml:/etc/prometheus/prometheus.yml
 
@@ -13,7 +13,7 @@ services:
     hostname: grafana
     image: grafana/grafana
     ports:
-      - 8081:3000
+      - 8085:3000
 
   app:
     build:
@@ -30,6 +30,6 @@ services:
     image: registry:2
     container_name: docker-registry
     ports:
-      - "5000:5000"
+      - "5001:5000"
     volumes:
       - /home/configs/docker-registry:/var/lib/registry
