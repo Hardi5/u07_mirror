@@ -13,7 +13,7 @@ services:
     hostname: grafana
     image: grafana/grafana
     ports:
-      - 3001:3000
+      - "3001:3000"
 
   app:
     build:
@@ -33,3 +33,12 @@ services:
       - "5000:5000"
     volumes:
       - /home/configs/docker-reg:/var/lib/registry
+
+  docker-registry-ui:
+    image: konradkleine/docker-registry-frontend:v2
+    container_name: docker-registry-ui
+    ports:
+      - "8080:80"
+    environment:
+      ENV_DOCKER_REGISTRY_HOST: docker-reg
+      ENV_DOCKER_REGISTRY_PORT: 5000
