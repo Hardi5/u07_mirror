@@ -17,3 +17,5 @@ Integration between backend and frontend, eg:
 docker push 172.232.148.114:5000/registry:v3
 docker pull 172.232.148.114:5000/registry:v3
 
+Github Mirroring upon branch updates:
+https://github.com/Hardi5/u07_mirror
